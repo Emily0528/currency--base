@@ -41,5 +41,22 @@ describe('Component ResultBox', () => {
         cleanup();
     }
   });
+  it('should display "Wrong value..." for negative amount', () => {
+    const testCases = [
+        { from: 'PLN', to: 'USD', amount: -100 },
+        { from: 'USD', to: 'PLN', amount: -50 },
+        { from: 'PLN', to: 'PLN', amount: -123 },
+        { from: 'USD', to: 'USD', amount: -12 },
+    ];
+
+    for (const testObj of testCases) {
+        render(<ResultBox from={testObj.from} to={testObj.to} amount={testObj.amount} />);
+
+        const output = screen.getByTestId('output');
+        expect(output).toHaveTextContent('Wrong value...');
+
+        cleanup();
+    }
+  });
 
 });
