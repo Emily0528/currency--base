@@ -26,5 +26,20 @@ describe('Component ResultBox', () => {
     }
 
   });
+  it('should display same value when from and to are the same', () => {
+    const testCases = [
+        { from: 'PLN', to: 'PLN', amount: 123, expected: 'PLN 123.00 = PLN 123.00' },
+        { from: 'USD', to: 'USD', amount: 50, expected: '$50.00 = $50.00' },
+    ];
+
+    for (const testObj of testCases) {
+        render(<ResultBox from={testObj.from} to={testObj.to} amount={testObj.amount} />);
+    
+        const output = screen.getByTestId('output');
+        expect(output).toHaveTextContent(testObj.expected);
+
+        cleanup();
+    }
+  });
 
 });
