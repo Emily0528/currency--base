@@ -7,4 +7,11 @@ describe('ConvertPLNtoUSD', () => {
     expect(convertPLNToUSD(20)).toBe('$5.71');
     expect(convertPLNToUSD(12)).toBe('$3.43');
   });
+
+  it('should return NaN when input is text', () => {
+    expect(convertPLNToUSD('5')).toBeNaN();
+    expect(convertPLNToUSD('hello')).toBeNaN();
+    expect(convertPLNToUSD('-12')).toBeNaN();
+    expect(convertPLNToUSD(' ')).toBeNaN();
+  });
 });
