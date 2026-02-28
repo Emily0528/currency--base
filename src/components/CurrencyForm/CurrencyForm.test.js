@@ -10,7 +10,6 @@ describe('Component CurrencyForm', () => {
 
   it('should run action callback with proper data for multiple test cases', () => {
 
-    // tablica z różnymi przypadkami testowymi
     const testCases = [
       { amount: '100', from: 'PLN', to: 'USD' },
       { amount: '20', from: 'USD', to: 'PLN' },
@@ -20,27 +19,21 @@ describe('Component CurrencyForm', () => {
 
     for (const testObj of testCases) {
 
-      // stwórz atrapę funkcji
       const action = jest.fn();
 
-      // render komponent
       render(<CurrencyForm action={action} />);
 
-      // znajdź pola formularza
       const amountField = screen.getByTestId('amount');
       const fromField = screen.getByTestId('from-select');
       const toField = screen.getByTestId('to-select');
 
-      // ustaw wartości dla testowanego przypadku
       userEvent.type(amountField, testObj.amount);
       userEvent.selectOptions(fromField, testObj.from);
       userEvent.selectOptions(toField, testObj.to);
 
-      // znajdź przycisk i kliknij
       const submitButton = screen.getByText('Convert');
       userEvent.click(submitButton);
 
-      // sprawdź wywołanie callbacka
       expect(action).toHaveBeenCalledTimes(1);
       expect(action).toHaveBeenCalledWith({
         amount: parseInt(testObj.amount),
@@ -48,7 +41,6 @@ describe('Component CurrencyForm', () => {
         to: testObj.to
       });
 
-      // odmontuj komponent po każdej iteracji
       cleanup();
     }
 
